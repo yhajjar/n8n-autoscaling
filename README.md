@@ -1,8 +1,12 @@
 # n8n Autoscaling System
 
-A Docker-based autoscaling solution for n8n workflow automation platform. Dynamically scales worker containers based on Redis queue length.
+A Docker-based autoscaling solution for n8n workflow automation platform. Dynamically scales worker containers based on Redis queue length.  No need to deal with k8s or any other container scaling provider, a simple script runs it all and is easily configurable.
 
-Includes Puppeteer and Chrome built-in.  
+Tested with hundreds of simultanous executions running on a 8 core 16gb ram VPS.  
+
+Includes Puppeteer and Chrome built-in for pro level scraping from the n8n code node, works better than the community nodes.  
+
+Simple install, just clone the files + docker compose up
 
 ## Architecture Overview
 
@@ -27,24 +31,25 @@ graph TD
 ## Prerequisites
 
 - Docker and Docker Compose
+- If you are a new user, I recommend either docker desktop or using the docker convenience script for ubuntu.  
 
 ## Quick Start
 
-1. Clone this repository to a folder of your choice
-2. Configure your environment variables
+1. Copy or Clone this repository to a folder of your choice
+2. Configure your environment variables in the .env file - defaults are good to go, but set new passwords and tokens.
 3. Run:
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 ## Configuration
 
 - Make sure you set your own passwords and encryption keys in the .env file!!!
 - By default each worker handles 10 tasks at a time, you can modify this in the docker-compose under:      
-      - N8N_CONCURRENCY_PRODUCTION_LIMIT=10
+   - N8N_CONCURRENCY_PRODUCTION_LIMIT=10
 - Adjust these to be greater than your longest expected workflow execution time measured in seconds:
-      - N8N_QUEUE_BULL_GRACEFULSHUTDOWNTIMEOUT=300
-      - N8N_GRACEFUL_SHUTDOWN_TIMEOUT=300
+   - N8N_QUEUE_BULL_GRACEFULSHUTDOWNTIMEOUT=300
+   - N8N_GRACEFUL_SHUTDOWN_TIMEOUT=300
 
 ### Key Environment Variables
 
