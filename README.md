@@ -2,7 +2,7 @@
 
 A Docker-based autoscaling solution for n8n workflow automation platform. Dynamically scales worker containers based on Redis queue length.  No need to deal with k8s or any other container scaling provider, a simple script runs it all and is easily configurable.
 
-Tested with hundreds of simultanous executions running on a 8 core 16gb ram VPS.  
+Tested with hundreds of simultaneous executions running on a 8 core 16gb ram VPS.  
 
 Includes Puppeteer and Chrome built-in for pro level scraping from the n8n code node, works better than the community nodes.  
 
