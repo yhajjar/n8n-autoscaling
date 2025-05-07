@@ -12,10 +12,13 @@ services:
       - redis_data:/data
     networks:
       - n8n-network
+#     - shark     
 
   postgres:
     image: postgres:17
     restart: unless-stopped
+    ports:
+      - 5432:5432
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -30,6 +33,7 @@ services:
       retries: 10
     networks:
       - n8n-network
+#     - shark
 
   n8n:
     build:
@@ -74,6 +78,7 @@ services:
         condition: service_healthy
     networks:
       - n8n-network
+#     - shark
     healthcheck:
       test: ['CMD', 'node', '-v']
       interval: 5s
@@ -119,6 +124,7 @@ services:
         condition: service_healthy
     networks:
       - n8n-network
+#     - shark
 
   n8n-worker:
     build:
@@ -162,24 +168,12 @@ services:
         condition: service_healthy
     networks:
       - n8n-network
+#     - shark
     healthcheck:
       test: ['CMD', 'node','-v']
       interval: 5s
       timeout: 5s
       retries: 10
-    # The 'deploy' key with 'replicas' is for Docker Swarm mode.
-    # For docker-compose scale, you set initial replicas with `docker-compose up --scale n8n-worker=X`
-    # or the autoscaler will manage it.
-    # Removing 'deploy' section for clarity if not using Swarm for this service.
-    # If you intend to use `docker stack deploy` (Swarm), keep it.
-    # For `docker-compose scale` driven by autoscaler, it's not strictly needed here.
-    # deploy:
-    #   replicas: 2 # Initial replicas, autoscaler will take over
-    #   restart_policy:
-    #     condition: on-failure
-    #     delay: 5s
-    #     max_attempts: 3
-    #     window: 60s
 
   redis-monitor:
     build:
@@ -249,3 +243,5 @@ volumes:
 networks:
   n8n-network:
     driver: bridge
+#  shark:
+#    external: true
