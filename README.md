@@ -96,6 +96,10 @@ The system includes:
 - Verify Redis connection: `docker-compose exec redis redis-cli ping`
 - Check queue length manually: `docker-compose exec redis redis-cli LLEN bull:jobs:wait`
 
+Webhook URL example:
+Webhooks use your docker service name not local host
+[n8n-webhook](http://n8n-webhook:5678/webhook/d7e73b77-6cfb-4add-b454-41e4c91461d8)
+
 ## License
 
 MIT License - See [LICENSE](LICENSE) for details.
